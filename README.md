@@ -1,0 +1,1 @@
+# Power-law-distribution-Lead-lag-effect-and-Investment-strategies-in-Stock-Markets
