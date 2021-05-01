@@ -12,5 +12,8 @@ final_sp500_09-20 ：Trading data for S&P 500 stocks from 2009 to 2020
 
 
 
-代码分为两部分：
-section 5
+The backtest code of section 5 is stored in two folders, CSI300 and S&P500, respectively.
+Each stock market contains three types of strategies, among which P_lead_lag_ori is the execution file of Pure lead-lag strategy;The file named P_ORI_alpha_XX is the execution file corresponding to Pure Alpha XX Strategy;The P_XXX_LEAD_LAG is the execution file for the Alpha XXX Enhancement Strategy
+
+
+In addition, P_read_sp500.m or P_READ_CSI.m files are required to load the required data before execution, and the benchmark selected can be used to load different data. The corresponding data names should be modified in this file
