@@ -7,8 +7,8 @@ URL：https://pan.baidu.com/s/1UzkjPXjhxTcysZW4Yuzqfg
 password：r0xk 
 
 The network disk contains two files:
-final_csi_09-20 ：The trading data of 300 stocks in Shanghai and Shenzhen from 2009 to 2020
-final_sp500_09-20 ：Trading data for S&P 500 stocks from 2009 to 2020
+final_csi_09-20.mat is the trading data of 300 stocks in Shanghai and Shenzhen from 2009 to 2020
+final_sp500_09-20.mat is theTrading data for S&P 500 stocks from 2009 to 2020
 
 
 
