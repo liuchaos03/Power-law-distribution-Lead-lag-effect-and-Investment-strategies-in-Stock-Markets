@@ -1,0 +1,36 @@
+clear all
+load benchmark_csi
+time=index_daily(:,1);
+value=index_daily(:,2);
+for fi=1:10
+ran=unidrnd(length(time),5000,2);
+for i=1:5000
+    f_ran(i,1+fi*3-3:2+fi*3-3)=sort(ran(i,:));
+end
+for i=1:5000
+%     f_ran(i,3)=(value(f_ran(i,2))*0.99-value(f_ran(i,1)))/(f_ran(i,2)-f_ran(i,1));
+if (f_ran(i,2+fi*3-3)-f_ran(i,1+fi*3-3))==0
+    f_ran(i,fi*3)=0;
+else
+    
+   f_ran(i,fi*3)=(value(f_ran(i,2+fi*3-3))*0.99-value(f_ran(i,1+fi*3-3)))/(f_ran(i,2+fi*3-3)-f_ran(i,1+fi*3-3));
+end
+end
+find(isnan(f_ran(:,3)))
+% s_ran=sort(f_ran(:,3));
+mean5(:,fi)=f_ran(1:5000,fi*3);
+end
+
+     mean_v(:,1)=sum(mean5,2)/fi;
+mean_v=sort(mean_v)
+   sharpe= mean_v*365;
+   sharpe=sort(sharpe)
+
+   rr(1,1)=mean_v(4750) ;
+   rr(1,2)=mean_v(4950);
+   rr(2,1)=sharpe(4750) ;
+   rr(2,2)=sharpe(4950);
+ rr
+% plot(1:1000,mean_v)      
+            
+    
