@@ -1,36 +1,37 @@
 
- %% ²ÎÊıÇø
-%Ê±¼ä¶Î
-t_time=20090901;%ÑµÁ·¿ªÊ¼ÈÕÆÚ
-initTime = 20100101; %»Ø²â¿ªÊ¼Ê±¼ä
-lastTime = 20110101; %»Ø²â½áÊøÊ±¼ä
+ %% å‚æ•°åŒº
+%æ—¶é—´æ®µ
+t_time=20090901;%è®­ç»ƒå¼€å§‹æ—¥æœŸ
+initTime = 20100101; %å›æµ‹å¼€å§‹æ—¶é—´
+lastTime = 20110101; %å›æµ‹ç»“æŸæ—¶é—´
 site_temp=find(z_date>=initTime);
-site_date_ini=site_temp(1);  %È·¶¨¿ªÊ¼Ê±¼äµÄÎ»ÖÃ£¬Èç¹ûÊ¹ÓÃ´¦ÀíºÃµÄÊı¾İ£¬´Ë²ÎÊıÎª¹Ì¶¨
-daynum = 0;                            %Ê±¼ä¼ÆÊı
-%lead-lag²ÎÊı
-derta=0.001;                          %ÏÔÖøĞÔË®Æ½
-shareNum=10000000;                         %ÉèÖÃ³õÊ¼½ğ¶î£»
+site_date_ini=site_temp(1);  %ç¡®å®šå¼€å§‹æ—¶é—´çš„ä½ç½®ï¼Œå¦‚æœä½¿ç”¨å¤„ç†å¥½çš„æ•°æ®ï¼Œæ­¤å‚æ•°ä¸ºå›ºå®š
+daynum = 0;                            %æ—¶é—´è®¡æ•°
+%lead-lagå‚æ•°
+derta=0.001;                          %æ˜¾è‘—æ€§æ°´å¹³
+shareNum=10000000;                         %è®¾ç½®åˆå§‹é‡‘é¢ï¼›
 cost=0.0025;
 fai=0.1;
-%alpha²ÎÊı
+%alphaå‚æ•°
 len20=20;
+len_A03=10; 
 len5=5;
 freq = 1;
-%% ¼ÆËãÖ¸±ê³õÊ¼»¯
-daily_income=zeros(2,length(date_valid)); %ÊÕÈë
+%% è®¡ç®—æŒ‡æ ‡åˆå§‹åŒ–
+daily_income=zeros(2,length(date_valid)); %æ”¶å…¥
 daily_income(1,1:end)=date_valid;         %
 
-final_shareNum=zeros(2,length(date_valid)); %Ã¿ÈÕ×Ü½ğ¶î
+final_shareNum=zeros(2,length(date_valid)); %æ¯æ—¥æ€»é‡‘é¢
 final_shareNum(1,1:end)=date_valid;
 final_shareNum(2,1:site_date_ini)=shareNum;
 
-consac_sig=0;    %½»Ò×ĞÅºÅ
-%% %%×¼±¸²ßÂÔ²¿·Ö
-%ËµÃ÷£ºÒÔÌìÎªµ¥Î»£¬°´ÕÕË¢ĞÂÆµÂÊ½øĞĞÑ­»·
+consac_sig=0;    %äº¤æ˜“ä¿¡å·
+%% %%å‡†å¤‡ç­–ç•¥éƒ¨åˆ†
+%è¯´æ˜ï¼šä»¥å¤©ä¸ºå•ä½ï¼ŒæŒ‰ç…§åˆ·æ–°é¢‘ç‡è¿›è¡Œå¾ªç¯
     month_info=[];
     month_info_begin=[];
-    %¼ÆËã½»Ò×Çé¿ö£¬²¢¼ÇÂ¼¹ºÂò¹ÉÆ±µÄÊÖÊı
-    %1£º±êµÄ´úÂë£»2£º×òÌìµ¥¼Û£»3£º½ñÌìµ¥¼Û£»4.×òÌì×Ü½ğ¶î£»5£º½ñÌì×Ü½ğ¶î£»6£º×òÌìÊÖÊı£»7£º½ñÌìÊÖÊı
+    %è®¡ç®—äº¤æ˜“æƒ…å†µï¼Œå¹¶è®°å½•è´­ä¹°è‚¡ç¥¨çš„æ‰‹æ•°
+    %1ï¼šæ ‡çš„ä»£ç ï¼›2ï¼šæ˜¨å¤©å•ä»·ï¼›3ï¼šä»Šå¤©å•ä»·ï¼›4.æ˜¨å¤©æ€»é‡‘é¢ï¼›5ï¼šä»Šå¤©æ€»é‡‘é¢ï¼›6ï¼šæ˜¨å¤©æ‰‹æ•°ï¼›7ï¼šä»Šå¤©æ‰‹æ•°
     target_calculate_structure=zeros(length(z_stock),7);
     target_calculate_structure(1:end,1)=z_stock;
     %
@@ -38,16 +39,16 @@ consac_sig=0;    %½»Ò×ĞÅºÅ
     abc_bcd(1:end,1)=z_stock;
     cost_sum=0;
     left_money=0;
-    %×îÖÕĞÅºÅ£º1.¹ÉÆ±´úÂë£»2.lead-lagĞÅºÅ£»3.½»Ò×Ç®Êı
+    %æœ€ç»ˆä¿¡å·ï¼š1.è‚¡ç¥¨ä»£ç ï¼›2.lead-lagä¿¡å·ï¼›3.äº¤æ˜“é’±æ•°
     final_table = zeros(length(z_stock(:,1)),3);
     final_table(:,1)=z_stock;
 
 for ii=1:length(date_valid)-site_date_ini+1
-    %% ¼ÆËãÇø£º
-    current_date=z_date(site_date_ini+daynum) %µ±ÌìÈÕÆÚ
-    current_month=floor(current_date/100);     %µ±ÔÂÔÂ·İ
-    daynum = daynum+1;                         %¼ÇÂ¼Ê±¼ä¡£
-    % ¼ÆËãlead-lag¿ªÊ¼ÔÂ·İ
+    %% è®¡ç®—åŒºï¼š
+    current_date=z_date(site_date_ini+daynum) %å½“å¤©æ—¥æœŸ
+    current_month=floor(current_date/100);     %å½“æœˆæœˆä»½
+    daynum = daynum+1;                         %è®°å½•æ—¶é—´ã€‚
+    % è®¡ç®—lead-lagå¼€å§‹æœˆä»½
     if current_month-floor(current_month/100)*100 > p_len_time
             begin_month=current_month-p_len_time;
         elseif current_month-floor(current_month/100)*100 <= p_len_time
@@ -56,14 +57,14 @@ for ii=1:length(date_valid)-site_date_ini+1
     if current_date==20100101
         current_date;
     end
-    %% lead-lag²ßÂÔÇø£º¼ÆËãÃ¿¸öÔÂµÄĞÂµÄµã¶Ô
+    %% lead-lagç­–ç•¥åŒºï¼šè®¡ç®—æ¯ä¸ªæœˆçš„æ–°çš„ç‚¹å¯¹
         if isempty(month_info)
            month_info=current_month;
             data_train_current=f_data_inputs(us2,begin_month*100,current_month*100);
            [~,~,data_train_re_current]=f_recode(data_train_current);
            [sum2,point_pair]=f_calculateF_sy(data_train_re_current,fai,derta);          
            pair_sort=sortrows(point_pair,-3); 
-        elseif month_info ~= current_month%%½øÈëµ½ÏÂÒ»¸öÔÂ£¬ÖØĞÂµ÷Õû¹ÉÆ±¶Ô
+        elseif month_info ~= current_month%%è¿›å…¥åˆ°ä¸‹ä¸€ä¸ªæœˆï¼Œé‡æ–°è°ƒæ•´è‚¡ç¥¨å¯¹
            month_info=current_month;    
            data_train_current=f_data_inputs(us2,begin_month*100,current_month*100);
            [~,~,data_train_re_current]=f_recode(data_train_current);
@@ -79,22 +80,22 @@ for ii=1:length(date_valid)-site_date_ini+1
             end
         end
         
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% ½»Ò×ÆµÂÊĞÅºÅ
-        if isempty(month_info_begin)||month_info_begin ~= current_month    %ÒÔÔÂÎªÆµÂÊ½øĞĞ½»Ò×
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% äº¤æ˜“é¢‘ç‡ä¿¡å·
+        if isempty(month_info_begin)||month_info_begin ~= current_month    %ä»¥æœˆä¸ºé¢‘ç‡è¿›è¡Œäº¤æ˜“
            if  sum(length(find(~isnan(z_ST(2:end,site_date_ini+daynum)))))<100
                 final_shareNum(2 ,site_date_ini+daynum-1 )=final_shareNum(2,site_date_ini+daynum-2 )
             else    
             month_info_begin=current_month;
-            %% ½»Ò××¼±¸£º
-              getAlpha =  f_Alpha003(z_open,z_vol,current_date,10); %»ñÈ¡alpha001Òò×Ó
-             % 1.½øĞĞ×Ê½ğ·ÖÅä£ºÁ½ÖÖ·½Ê½£¨1£©Èç¹û´¿alpha »òÕß MA£º¾ù·Ö£¨2£©¼ÓÈëlead-lag£º°´ÕÕlead-lag¼ÆËãºóµÄ±ÈÀı
-            sum_share=0;                                %×Ê½ğ·ÖÅäµÄ·ÖÄ¸
-              for  t_f_t=1:length(final_table)            %µş¼ÓĞÅºÅ
+            %% äº¤æ˜“å‡†å¤‡ï¼š
+              getAlpha =  f_Alpha003(z_open,z_vol,current_date,len_A03); %è·å–alpha001å› å­
+             % 1.è¿›è¡Œèµ„é‡‘åˆ†é…ï¼šä¸¤ç§æ–¹å¼ï¼ˆ1ï¼‰å¦‚æœçº¯alpha æˆ–è€… MAï¼šå‡åˆ†ï¼ˆ2ï¼‰åŠ å…¥lead-lagï¼šæŒ‰ç…§lead-lagè®¡ç®—åçš„æ¯”ä¾‹
+            sum_share=0;                                %èµ„é‡‘åˆ†é…çš„åˆ†æ¯
+              for  t_f_t=1:length(final_table)            %å åŠ ä¿¡å·
                   if getAlpha(t_f_t)<=0
                       final_table(t_f_t,2)=0;
                   end
               end    
-            for t_f_t=1:length(final_table)             %¼ÆËã×ÜÈ¨ÖØ
+            for t_f_t=1:length(final_table)             %è®¡ç®—æ€»æƒé‡
                 if final_table(t_f_t,2)>0
                     sum_share=sum_share+final_table(t_f_t,2);                
                 end
@@ -105,13 +106,13 @@ for ii=1:length(date_valid)-site_date_ini+1
             else
                 final_shareNum(2 ,site_date_ini+daynum-1 )=final_shareNum(2 ,site_date_ini+daynum-2 );
             end
-            for t_f_t=1:length(final_table)             %·ÖÅä½ğ¶î
+            for t_f_t=1:length(final_table)             %åˆ†é…é‡‘é¢
                 if final_table(t_f_t,2)>0
                     final_table(t_f_t,3)=final_shareNum(2 , site_date_ini+daynum-1)*final_table(t_f_t,2)/sum_share;
                 end
             end
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% ½»Ò×¿ªÊ¼
-            if consac_sig==0 %µÚÒ»´Î½»Ò×
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% äº¤æ˜“å¼€å§‹
+            if consac_sig==0 %ç¬¬ä¸€æ¬¡äº¤æ˜“
                  consac_sig=1;
 %                  final_shareNum(2,)=final_shareNum(2,-1)
                 target_calculate_structure(1:end,3)=z_ST(find(ismember(z_ST(:,1),target_calculate_structure(:,1))),site_date_ini+daynum);
@@ -122,13 +123,13 @@ for ii=1:length(date_valid)-site_date_ini+1
                         target_calculate_structure(:,7)=0;
                         left_money= final_shareNum(2 ,site_date_ini+daynum-2 );
                  else
-                    % ¿ªÊ¼Ñ­»·£¬Ã¿Ö»¹ÉÆ±Ñ­»·Ò»´Î
+                    % å¼€å§‹å¾ªç¯ï¼Œæ¯åªè‚¡ç¥¨å¾ªç¯ä¸€æ¬¡
                     for coi=1:length(z_stock)
                         total_coi=0;                   
                         if final_table(coi,3)<0
                             target_calculate_structure(coi,5)=0;
                             target_calculate_structure(coi,7)=0;
-                        elseif final_table(coi,3)>0 && isnan(target_calculate_structure(coi,3)) % Ó¦¸ÃÂò£¬µ«Ã»Âò³É
+                        elseif final_table(coi,3)>0 && isnan(target_calculate_structure(coi,3)) % åº”è¯¥ä¹°ï¼Œä½†æ²¡ä¹°æˆ
                             left_money=left_money+final_table(coi,3);
                             target_calculate_structure(coi,5)=0;
                             target_calculate_structure(coi,7)=0;
@@ -137,12 +138,12 @@ for ii=1:length(date_valid)-site_date_ini+1
                             target_calculate_structure(coi,6)= target_calculate_structure(coi,7);
                             target_calculate_structure(coi,5)=target_calculate_structure(coi,7)*target_calculate_structure(coi,3)*100;
                             target_calculate_structure(coi,4)=target_calculate_structure(coi,5);            
-                            left_money=left_money +  final_table(coi,3) - target_calculate_structure(coi,5); %Ã»Âò³ÉÕûÊÖÊıµÄÇ®´æÈëÏÖ½ğ
+                            left_money=left_money +  final_table(coi,3) - target_calculate_structure(coi,5); %æ²¡ä¹°æˆæ•´æ‰‹æ•°çš„é’±å­˜å…¥ç°é‡‘
                         end
                     end
                     cost_sum = cost_sum + cost*sum(target_calculate_structure(find(~isnan(target_calculate_structure(:,5))),5));
                  end
-            elseif consac_sig==1  %²»ÊÇµÚÒ»´Î½»Ò×ÁË£¬ÒªÏÈÇåËã£¬ÔÙÂòÂô
+            elseif consac_sig==1  %ä¸æ˜¯ç¬¬ä¸€æ¬¡äº¤æ˜“äº†ï¼Œè¦å…ˆæ¸…ç®—ï¼Œå†ä¹°å–
 %                  [money_total_hold, daily_income(2,site_date_ini+daynum-1)]=f_daily_calculate(target_calculate_structure,z_ST,site_date_ini,daynum);
 %                  final_shareNum(2 ,site_date_ini+daynum-1 )=money_total_hold+left_money;
                  target_calculate_structure(1:end,2)= target_calculate_structure(1:end,3);
@@ -159,20 +160,20 @@ for ii=1:length(date_valid)-site_date_ini+1
                         target_calculate_structure(:,7)=0;
                         left_money= final_shareNum(2 ,site_date_ini+daynum-2 );
                  else
-                    % ¿ªÊ¼Ñ­»·£¬Ã¿Ö»¹ÉÆ±Ñ­»·Ò»´Î
+                    % å¼€å§‹å¾ªç¯ï¼Œæ¯åªè‚¡ç¥¨å¾ªç¯ä¸€æ¬¡
                     for coi=1:length(z_stock)
                         total_coi=0;                   
                         if final_table(coi,3)<0
                             target_calculate_structure(coi,5)=0;
                             target_calculate_structure(coi,7)=0;
-                        elseif final_table(coi,3)>0 && isnan(target_calculate_structure(coi,3)) % Ó¦¸ÃÂò£¬µ«Ã»Âò³É
+                        elseif final_table(coi,3)>0 && isnan(target_calculate_structure(coi,3)) % åº”è¯¥ä¹°ï¼Œä½†æ²¡ä¹°æˆ
                             left_money=left_money+final_table(coi,3);
                             target_calculate_structure(coi,5)=0;
                             target_calculate_structure(coi,7)=0;
                         elseif final_table(coi,3)>0 && ~isnan(target_calculate_structure(coi,3))
                             target_calculate_structure(coi,7)=floor(( final_table(coi,3)/target_calculate_structure(coi,3))/100);
                             target_calculate_structure(coi,5)=target_calculate_structure(coi,7)*target_calculate_structure(coi,3)*100;                                   
-                            left_money=left_money +  final_table(coi,3) - target_calculate_structure(coi,5); %Ã»Âò³ÉÕûÊÖÊıµÄÇ®´æÈëÏÖ½ğ
+                            left_money=left_money +  final_table(coi,3) - target_calculate_structure(coi,5); %æ²¡ä¹°æˆæ•´æ‰‹æ•°çš„é’±å­˜å…¥ç°é‡‘
                         end
                     end
                     shou=target_calculate_structure(:,7)-target_calculate_structure(:,6);
@@ -190,8 +191,8 @@ for ii=1:length(date_valid)-site_date_ini+1
                  
             end
             end
-        else  %»¹ÔÚ±¾ÔÂ£¬²»½»Ò×           
-            %% ÈÕ³£ºËËãÇø£º
+        else  %è¿˜åœ¨æœ¬æœˆï¼Œä¸äº¤æ˜“           
+            %% æ—¥å¸¸æ ¸ç®—åŒºï¼š
             
                  [money_total_hold, daily_income(2,site_date_ini+daynum-1)]=f_daily_calculate(target_calculate_structure,z_ST,site_date_ini,daynum);
                   final_shareNum(2 ,site_date_ini+daynum-1 )=money_total_hold+left_money;
