@@ -28,7 +28,7 @@ for j=2:length(z_stock)+1
       
     end
 end
-%¼ÆËã±ßÊı
+%è®¡ç®—è¾¹æ•°
 
 [m,n]=size(z_SST);
 z_follow_matrix=zeros(length(z_stock)+1,length(z_stock)+1);
@@ -83,8 +83,8 @@ z_simu_accumulate=[0,0,0;1,0,0;2,0,0;3,0,0;4,0,0;5,0,0];
 z_simu=zeros(siz);
 z_simu2=zeros(siz);
 
-%% Ñ­»··ÂÕæ
-% for ppqq=1:19%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%·ÂÕæ´ÎÊıµ÷Õû
+%% å¾ªç¯ä»¿çœŸ
+ for ppqq=1:500%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ä»¿çœŸæ¬¡æ•°è°ƒæ•´
 for i=1:length(z_date)-2
     a=rand(siz);
     k=find(p_per_day(i)>a);
@@ -98,12 +98,12 @@ for i=1:length(z_date)-2
 end
     z_statis_simu=tabulate(z_simu(:));
     z_statis_simu2=tabulate(z_simu2(:));
-% end
+ end
 z_statis_simu2(:,2)=z_statis_simu2(:,2)/sum(z_statis_simu2(:,2));
   z_statis_simu(:,2)=z_statis_simu(:,2)/sum(z_statis_simu(:,2));
    curve1= z_statis_simu(:,1);
    curve2= z_statis_simu(:,2);
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%»æÍ¼ÄâºÏ
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ç»˜å›¾æ‹Ÿåˆ
    x=-0.6:0.01:20;
         a1 =     0.1829  ;
         b1 =       4.806 ;
@@ -115,7 +115,7 @@ z_statis_simu2(:,2)=z_statis_simu2(:,2)/sum(z_statis_simu2(:,2));
    hold on;
    plot(x,y)
 
-%%%%¼ÆËã´óÓÚ°Ù·ÖÖ®90£¬Ğ¡¸ÅÂÊÊÂ¼şµÄ¸úËæ´ÎÊı
+%%%%è®¡ç®—å¤§äºç™¾åˆ†ä¹‹90ï¼Œå°æ¦‚ç‡äº‹ä»¶çš„è·Ÿéšæ¬¡æ•°
 z_ff=zeros(m-1,m-1);
 z_ff=z_follow_matrix(2:end,2:end);
 z_statis=tabulate(z_ff(:));
@@ -124,7 +124,7 @@ z_statis=tabulate(z_ff(:));
 % courve2=z_statis(:,2)
 
 % figure(10);
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%»æÍ¼²¿·Ö£¬ÄâºÏ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%ç»˜å›¾éƒ¨åˆ†ï¼Œæ‹Ÿåˆ
 %  x=-0.6:0.01:12
 %   a1 =      0.6077  ;
 %        b1 =     -0.3835  ;
@@ -159,20 +159,20 @@ while temp_simu2<=S_simu2(3)*(1-derta)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%&*
     h_simu2=h_simu2+1;
     temp_simu2=temp_simu2+z_statis_simu2(h_simu2,3);
 end
-%%ÄâºÏ¿ªÊ¼
-%°Ñ¾ØÕóµÄÍ³¼ÆÉ¢µãĞ´ÈëÒ»Î¬Êı×é
-%ÕæÊµÄâºÏ
+%%æ‹Ÿåˆå¼€å§‹
+%æŠŠçŸ©é˜µçš„ç»Ÿè®¡æ•£ç‚¹å†™å…¥ä¸€ç»´æ•°ç»„
+%çœŸå®æ‹Ÿåˆ
 z_x=z_statis(:,1);
 z_y=z_statis(:,2);
-%·ÂÕæÄâºÏ
+%ä»¿çœŸæ‹Ÿåˆ
 z_x_s=z_statis_simu(:,1);
 z_y_s=z_statis_simu(:,2);   
 
 
-%²éÕÒ¹ÉÆ±¶ÔÎ»ÖÃ
+%æŸ¥æ‰¾è‚¡ç¥¨å¯¹ä½ç½®
   site=z_follow_matrix(2:m,2:m)>=h_simu;
   [p,q]=find(site==1);
-%  pp=find(p==q)    %×¼±¸×Ô¸úËæÎ»ÖÃ
+%  pp=find(p==q)    %å‡†å¤‡è‡ªè·Ÿéšä½ç½®
 %  sum(sum(site))
  %=z_follow_matrix(i2,j2);
  point_pair=zeros(length(p),3);
@@ -180,14 +180,14 @@ z_y_s=z_statis_simu(:,2);
  point_pair(:,2)=z_stock(q);
 [p,q]= find (z_follow_matrix(2:m,2:m)>=h_simu);%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p=p+1;q=q+1;
-pp=find(p==q);    %×¼±¸×Ô¸úËæÎ»ÖÃ
+pp=find(p==q);    %å‡†å¤‡è‡ªè·Ÿéšä½ç½®
 for i=1:length(p)
     point_pair(i,1)=z_follow_matrix(p(i),1);
     point_pair(i,2)=z_follow_matrix(1,q(i));
     point_pair(i,3)=z_follow_matrix(p(i),q(i));
 
 end
-%% ÁíÒ»×é
+%% å¦ä¸€ç»„
  site2=z_follow_matrix2(2:m,2:m)>=h_simu2;
   [p2,q2]=find(site2==1);
 
@@ -196,14 +196,14 @@ end
  point_pair2(:,2)=z_stock(q2);
 [p2,q2]= find (z_follow_matrix2(2:m,2:m)>=h_simu2);%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p2=p2+1;q2=q2+1;
-pp2=find(p2==q2);    %×¼±¸×Ô¸úËæÎ»ÖÃ
+pp2=find(p2==q2);    %å‡†å¤‡è‡ªè·Ÿéšä½ç½®
 for i=1:length(p2)
     point_pair2(i,1)=z_follow_matrix2(p2(i),1);
     point_pair2(i,2)=z_follow_matrix2(1,q2(i));
     point_pair2(i,3)=-z_follow_matrix2(p2(i),q2(i));
 
 end
-%% ²éÓĞÎŞÖØ¸´µã¶Ô£¬£¬ÒªÈ¥µô
+%% æŸ¥æœ‰æ— é‡å¤ç‚¹å¯¹ï¼Œï¼Œè¦å»æ‰
 siit1=[];
 siit2=[];
 for sa=1:length(point_pair(:,1))
@@ -219,7 +219,7 @@ if ~isempty(siit1)
     point_pair2(siit2,:)=[];
 end       
 point_pair=[point_pair;point_pair2]
-%% ²éÕÒ×Ô¸úËæ½Úµã
+%% æŸ¥æ‰¾è‡ªè·ŸéšèŠ‚ç‚¹
 % point_self=zeros(length(pp),2);
 % point_self(:,1)=z_stock(p(pp));
 % point_self(:);
@@ -232,7 +232,7 @@ point_unique=unique(point_total);
 m_unique=unique(point_pair(:,1:2));
 length(m_unique)
 
-%%ÕÒµ½Ñ­»·¸úËæµã¶Ô£¨a¸úËæb h´ÎÇÒbÒ²¸úËæa h´Î£©
+%%æ‰¾åˆ°å¾ªç¯è·Ÿéšç‚¹å¯¹ï¼ˆaè·Ÿéšb hæ¬¡ä¸”bä¹Ÿè·Ÿéša hæ¬¡ï¼‰
 % point_cycle_no=[];
 % for i=2:length(z_follow_matrix)
 %     for j=2:length(z_follow_matrix)
