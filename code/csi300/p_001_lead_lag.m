@@ -88,6 +88,29 @@ for ii=1:length(date_valid)-site_date_ini+1
             month_info_begin=current_month;
             %% 交易准备：
               getAlpha = f_Alpha001(z_ST,z_19kc_rate,current_date,len20,len5); %获取alpha001因子
+              %getAlpha = f_Alpha013(z_open,z_vol,current_date,len);                                  %Set parameters as required 03
+              %getAlpha =f_Alpha003(z_open,z_vol,current_date,len);                                   %Set parameters as required 04 
+              %getAlpha = f_Alpha004(z_low,current_date,len);                                         %Set parameters as required 06
+              %getAlpha = f_Alpha006(z_open,z_vol,current_date,len);                                  %Set parameters as required 10
+              %getAlpha = f_Alpha012(z_ST,z_vol,current_date);                                        %Set parameters as required 12
+              %getAlpha = f_Alpha013(z_ST,z_vol,current_date,len);                                    %Set parameters as required 13
+              %getAlpha = f_Alpha014(z_open,z_19kc_rate,z_vol,current_date,10,3);                     %Set parameters as required 14
+              %getAlpha = f_Alpha015(z_high,z_vol,current_date,len);                                  %Set parameters as required 15
+              %getAlpha = f_Alpha016(z_high,z_vol,current_date,len);                                  %Set parameters as required 16
+              %getAlpha = f_Alpha026(z_high,z_vol,current_date,len);                                  %Set parameters as required 26
+              %getAlpha = f_Alpha028(z_ST,z_vol,z_low,z_high,current_date,len);                       %Set parameters as required 28
+              %getAlpha = f_Alpha033(z_open,z_ST,current_date,len);                                   %Set parameters as required 33
+              %getAlpha = f_Alpha034(z_open,z_ST,current_date,len1,len2);                             %Set parameters as required 34
+              %getAlpha = f_Alpha001(z_ST,z_19kc_rate,current_date,len,len);                          %Set parameters as required 37
+              %getAlpha = f_Alpha038(z_open,z_ST,current_date,len);                                   %Set parameters as required 38
+              %getAlpha = f_Alpha040(z_high,z_vol,current_date,len);                                  %Set parameters as required 40
+              %getAlpha = f_Alpha043(z_ST,z_vol,current_date,len1,len2);                              %Set parameters as required 43
+              %getAlpha = f_Alpha044(z_high,z_vol,current_date,len);                                  %Set parameters as required 44
+              %getAlpha = f_Alpha053(z_ST,z_vol,z_low,z_high,current_date,len);                       %Set parameters as required 53
+              %getAlpha = f_Alpha054(z_ST,z_open,z_vol,z_low,z_high,current_date,len);                %Set parameters as required 54
+              %getAlpha = f_Alpha055(z_ST,z_vol,z_low,z_high,current_date,len6,len);                  %Set parameters as required 55
+              %getAlpha = f_Alpha101(z_open,z_ST,z_high,z_low,current_date,len);                      %Set parameters as required 101
+                            
              % 1.进行资金分配：两种方式（1）如果纯alpha 或者 MA：均分（2）加入lead-lag：按照lead-lag计算后的比例
             sum_share=0;                                %资金分配的分母
               for  t_f_t=1:length(final_table)            %叠加信号
