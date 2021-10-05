@@ -61,7 +61,8 @@ for ii=1:length(date_valid)-site_date_ini+1
            month_info=current_month;
             data_train_current=f_data_inputs(us2,begin_month*100,current_month*100);
            [~,~,data_train_re_current]=f_recode(data_train_current);
-           [sum2,point_pair]=f_calculateF_sy(data_train_re_current,fai,derta);          
+           [sum2,point_pair]=f_calculateF_sy(data_train_re_current,fai,derta); 
+           
            pair_sort=sortrows(point_pair,-3); 
         elseif month_info ~= current_month%%进入到下一个月，重新调整股票对
            month_info=current_month;    
